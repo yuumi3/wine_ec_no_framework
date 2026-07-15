@@ -1,0 +1,27 @@
+{
+  "name": "wine_ec_no_framework",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=26.0.0"
+  },
+  "scripts": {
+    "db:migrate": "node server/db/migrate.ts",
+    "db:seed": "node server/db/seed.ts",
+    "db:reset": "node server/db/migrate.ts --reset && node server/db/seed.ts",
+    "dev:server": "node --watch server/main.ts",
+    "dev:web": "node esbuild.config.mjs --watch",
+    "dev:css": "tailwindcss -i web/src/styles.css -o web/dist/styles.css --watch",
+    "build:web": "node esbuild.config.mjs && tailwindcss -i web/src/styles.css -o web/dist/styles.css --minify",
+    "start": "node server/main.ts",
+    "test": "node --test \"tests/*.test.ts\"",
+    "test:e2e": "playwright test",
+    "e2e:server": "npm run build:web && node server/db/migrate.ts --reset && node server/db/seed.ts && node server/main.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "esbuild": "^0.24.0",
+    "tailwindcss": "^3.4.0"
+  }
+}
